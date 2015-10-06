@@ -30,7 +30,8 @@ public class Label {
 		}
 		
 		public String formatNumber(){
-			String number = ci1.getPhone();
+			String cNumber = ci1.getPhone();
+			String number = ("(" + (cNumber).substring(0, 3) + ") " + (cNumber).substring(4, 7) +  "-" + (cNumber).substring(7, 11)); 
 			return number;
 		}
 	

@@ -9,9 +9,8 @@ package downes;
  */
 public class ContestantInformation {
 		
-	public String firstName, lastName, streetAddress, city, postalCode, phone, birthDate;
-	Provinces province;
-			
+	public String firstName, lastName, streetAddress, city, province, postalCode, phone, birthDate;
+				
 	/**
 	 * blank constructor
 	 */
@@ -25,18 +24,18 @@ public class ContestantInformation {
 	 * @param String lN
 	 * @param String sA
 	 * @param String cT
-	 * @param Provinces pR
+	 * @param String pR
 	 * @param String pC
 	 * @param String pH
 	 * @param String bD
 	 * @throws InvalidInputException 
 	 */
-	public ContestantInformation(String fN, String  lN, String sA, String cT, String provicnceCode, String pC, String pH, String bD) throws InvalidInputException {
+	public ContestantInformation(String fN, String  lN, String sA, String cT, String pR, String pC, String pH, String bD) throws InvalidInputException {
 		setFirstName(fN);
 		setLastName(lN);
 		setStreetAddress(sA);
 		setCity(cT);
-		setProvince(province);
+		setProvince(pR);
 		setPostalCode(pC);
 		setPhone(pH);
 		setBirthDate(bD);
@@ -102,53 +101,53 @@ public class ContestantInformation {
 	/**
 	 * @return String province
 	 */
-	public Provinces getProvince(){
+	public String getProvince(){
 		return province;
 	}
 	
 	/**
-	 * @param Provinces province
+	 * @param String province
 	 */
-	Provinces provinceCode;
-	public void setProvince(String provinceC){
-		if (province.equals("Ontario") || province.equals("ontario")) {
-			provinceCode = Provinces.ON;
+	String provinceCode;
+	public void setProvince(String province){
+		if (province.equalsIgnoreCase("ontario")){
+			provinceCode = "ON";
 		}
-		else if (province.equals("Quebec")||province.equals("quebec")) {
-			provinceCode = Provinces.QC;
+		else if (province.equalsIgnoreCase("quebec")) {
+			provinceCode = "QC";
 		}
-		else if (province.equals("Nova Scotia")||province.equals("nova scotia")||province.equals("Nova scotia")) {
-			provinceCode = Provinces.NS;
+		else if (province.equalsIgnoreCase("nova scotia")) {
+			provinceCode = "NS";
 		}
-		else if (province.equals("New Brunswick")||province.equals("new brunswick")||province.equals("New brunswick")) {
-			provinceCode = Provinces.NB;
+		else if (province.equalsIgnoreCase("new brunswick")) {
+			provinceCode = "NB";
 		}
-		else if (province.equals("Manitoba")||province.equals("manitoba")) {
-			provinceCode = Provinces.MB;
+		else if (province.equalsIgnoreCase("manitoba")) {
+			provinceCode = "MB";
 		}
-		else if (province.equals("British Colombia")||province.equals("british colombia")||province.equals("British colombia")) {
-			provinceCode = Provinces.BC;
+		else if (province.equalsIgnoreCase("british colombia")) {
+			provinceCode = "BC";
 		}
-		else if (province.equals("Prince Edward")||province.equals("prince edward")||province.equals("Prince edward")) {
-			provinceCode = Provinces.PE;
+		else if (province.equalsIgnoreCase("prince edward")) {
+			provinceCode = "PE";
 		}
-		else if (province.equals("Saskatchewan")||province.equals("saskatchewan")) {
-			provinceCode = Provinces.SK;
+		else if (province.equalsIgnoreCase("saskatchewan")) {
+			provinceCode = "SK";
 		}
-		else if (province.equals("Alberta")||province.equals("alberta")) {
-			provinceCode = Provinces.AB; 
+		else if (province.equalsIgnoreCase("alberta")) {
+			provinceCode = "AB"; 
 		}
-		else if (province.equals("Newfoundland and Labrador")||province.equals("newfoundland and labrador")) {
-			provinceCode = Provinces.NL;
+		else if (province.equalsIgnoreCase("newfoundland and labrador")) {
+			provinceCode = "NL";
 		}
-		else if (province.equals("Northwest Territories")||province.equals("northwest territories")||province.equals("NWT")) {
-			provinceCode = Provinces.NT;
+		else if (province.equalsIgnoreCase("northwest territories")) {
+			provinceCode = "NT";
 		}
-		else if (province.equals("Yukon Territories")||province.equals("yukon territories")||province.equals("Yukon")) {
-			provinceCode = Provinces.YT;
+		else if (province.equalsIgnoreCase("yukon territories")) {
+			provinceCode = "YT";
 		}
-		else if (province.equals("Nunavut")||province.equals("nunavut")) {
-			provinceCode = Provinces.NU;
+		else if (province.equalsIgnoreCase("nunavut")) {
+			provinceCode = "NU";
 		}
 		this.province = provinceCode;
 	}

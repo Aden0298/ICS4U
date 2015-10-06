@@ -44,16 +44,16 @@ public class RealityShowApplication {
 		System.out.println("Please enter your province (e.g. Ontario, Alberta)");
 		String provinceC =input.nextLine();
 		contestant1.setProvince(provinceC);
-		System.out.println("Please enter your postal code. (e.g. A#A #A#");
+		System.out.println("Please enter your postal code. (e.g. A#A#A#)");
 		String pC=input.nextLine();
 		contestant1.setPostalCode(pC);
-		System.out.println("Please enter your phone number. (e.g. (###) ###-####)");
+		System.out.println("Please enter your phone number. (e.g. ##########)");
 		String pH=input.nextLine();
 		contestant1.setPhone(pH);
 		System.out.println("Please enter your birth date.");
 		String bD=input.nextLine();
 		contestant1.setBirthDate(bD);
-		Label label1 = new Label(contestant2);
+		Label label1 = new Label(contestant1);
 		System.out.print(label1.toString());
 	}
 
