@@ -7,7 +7,8 @@ package downes;
  * @author Aden Downes
  *
  */
-public class ContestantInformation {
+@SuppressWarnings("rawtypes")
+public class ContestantInformation implements Comparable {
 		
 	public String firstName, lastName, streetAddress, city, province, postalCode, phone, birthDate;
 				
@@ -50,11 +51,20 @@ public class ContestantInformation {
 	
 	/**
 	 * @param String firstName 
+	 * @throws InvalidInputException 
 	 */
-	public void setFirstName(String firstName) {
-		
+	public void setFirstName(String firstName) throws InvalidInputException {
+		if(firstName.length() == 0){
+			throw new InvalidInputException("You cannot leave your first name empty.");
+		}
+		for(int i = 0; i < firstName.length(); i ++){
+			if (Character.isDigit(firstName.charAt(i)))
+				throw new InvalidInputException("You cannot have a number in your name.");
+			}
 		this.firstName = firstName;
 	}
+		/*this.firstName = firstName;
+	}*/
 	
 	/**
 	 * @return String lastName
@@ -65,10 +75,21 @@ public class ContestantInformation {
 	
 	/**
 	 * @param String lastName
+	 * @throws InvalidInputException 
 	 */
-	public void setLastName(String lastName){
+	public void setLastName(String lastName) throws InvalidInputException{
+		if(lastName.length() == 0){
+			throw new InvalidInputException("You cannot leave your last name empty.");
+		}
+		for(int i = 0; i < lastName.length(); i ++){
+			if (Character.isDigit(lastName.charAt(i))){
+				throw new InvalidInputException("You cannot have a number in your name.");
+			}
+		}
 		this.lastName = lastName;
 	}
+		/*this.lastName = lastName;
+	}*/
 	
 	/**
 	 * @return String streetAddress
@@ -79,8 +100,12 @@ public class ContestantInformation {
 	
 	/**
 	 * @param String streetAddress
+	 * @throws InvalidInputException 
 	 */
-	public void setStreetAddress(String streetAddress){
+	public void setStreetAddress(String streetAddress) throws InvalidInputException{
+		if(streetAddress.length() == 0){
+			throw new InvalidInputException("You can not leave your address empty.");
+		}
 		this.streetAddress = streetAddress;
 	}
 	
@@ -93,8 +118,17 @@ public class ContestantInformation {
 	
 	/**
 	 * @param String city
+	 * @throws InvalidInputException 
 	 */
-	public void setCity(String city){
+	public void setCity(String city) throws InvalidInputException{
+		if(city.length() == 0){
+			throw new InvalidInputException("You can not leave your city empty.");
+		}
+		for(int i = 0; i < city.length(); i++){
+			if (Character.isDigit(city.charAt(i))){
+				throw new InvalidInputException("City's names do not contain numbers.");
+			}
+		}
 		this.city = city;
 	}
 	
@@ -185,8 +219,17 @@ public class ContestantInformation {
 	
 	/**
 	 * @param String phone
+	 * @throws InvalidInputException 
 	 */
-	public void setPhone(String phone){
+	public void setPhone(String phone) throws InvalidInputException{
+		if(phone.length() == 0){
+			throw new InvalidInputException("You can not leave your phone number empty.");
+		}
+		for (int i=0; i<=phone.length(); i++) {
+			if (Character.isLetter(phone.charAt(i))){
+				throw new InvalidInputException("Please enter a valid phone number.");
+			}
+		}
 		this.phone = phone;
 	}
 	
@@ -199,11 +242,18 @@ public class ContestantInformation {
 	
 	/**
 	 * @param String birthDate
+	 * @throws InvalidInputException 
 	 */
-	public void setBirthDate(String birthDate){
+	public void setBirthDate(String birthDate) throws InvalidInputException{
+		if(birthDate.length() == 0){
+			throw new InvalidInputException("You can not leave your birth date empty.");
+		}
 		this.birthDate = birthDate;
 	}
-	
-	
 
+	public int compareTo(Object args){
+		ContestantInformation ci = (ContestantInformation)args;
+		return 0; 
+	}
+	
 }
