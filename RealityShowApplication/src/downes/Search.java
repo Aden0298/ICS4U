@@ -73,21 +73,21 @@ public class Search {
 	}*/
 	
 	
-	public static int StringSearch (String[] things, String target){
+	public static int StringSearch (ArrayList<ContestantInformation> contestanti, String target){
 		
 		int i;
 		int begIndex = 0;
-		int endIndex = things.length - 1;
+		int endIndex = contestanti.size();
 		int midIndex = (begIndex + endIndex) / 2;
 		do {
 			midIndex = (begIndex + endIndex) / 2;
-			if (target.compareTo(things[midIndex]) > 0 ) {
+			if (target.compareTo(contestanti.get(midIndex).getLastName()) > 0 ) {
 				begIndex = midIndex + 1;
 			}
-			else if (target.compareTo(things[midIndex]) < 0) {
+			else if (target.compareTo(contestanti.get(midIndex).getLastName()) < 0) {
 				endIndex = midIndex - 1; 
 			}
-			else if (target.compareTo(things[midIndex]) == 0){
+			else if (target.compareTo(contestanti.get(midIndex).getLastName()) == 0){
 				i = midIndex;
 				return i;
 			}

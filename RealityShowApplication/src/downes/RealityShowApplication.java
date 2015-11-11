@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * @author 342643103
+ * @author Aden Downes
+ * 
  *
  */
 public class RealityShowApplication {
@@ -31,88 +32,49 @@ public class RealityShowApplication {
 	 * @param <ArrayListContestantInformation>
 	 * @param args
 	 * @throws InvalidInputException 
+	 * @throws IOException 
 	 */
-	public static <ArrayListContestantInformation> void main(String[] args) throws InvalidInputException {
+	public static <ArrayListContestantInformation> void main(String[] args) throws InvalidInputException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Welcome to 'Name That Sound'!");
-		String[] fNames = new String[50];
-		String[] lNames = new String[50];
-		String[] sAddresses = new String[50];
-		String[] cities = new String[50];
-		String[] provinces = new String[50];
-		String[] pCodes = new String[50];
-		String[] phones = new String[50];
-		String[] bDates = new String[50];
-		//ContestantInformation[] contestants = new ContestantInformation[50];
 		
 		for (int i = 0; i<=51; i++){
 			
-			ContestantInformation contestanti = new ContestantInformation();
+			//ContestantInformation contestanti = new ContestantInformation();
+			ArrayList<ContestantInformation> contestanti = new ArrayList<ContestantInformation>();
 			System.out.print("\n");
 			System.out.println("Choose one of the following: ");
-			System.out.println("1. Add Contestant" + "\n" + "2. Search Contestants" + "\n" + "3. Print labels" + "\n" + "4. Delete Contestants" + "\n" + "5. Clear All Contestants" + "\n" + "6. Save List" + "\n" +  "7. Load List" + "\n" +  "8. Quit" );
+			System.out.println("1. Add Contestant" + "\n" + "2. Search Contestants" + "\n" + "3. Print labels" + "\n" + "4. Delete Contestant" + "\n" + "5. Clear All Contestants" + "\n" + "6. Save List" + "\n" +  "7. Load List" + "\n" +  "8. Quit" );
 			int option = Integer.parseInt(input.nextLine());
 			
 		
 		
 			if (option==1){ //Add Contestant
-				/*System.out.println("Please enter your first name.");
-				String fN =input.nextLine();
-				contestanti.setFirstName(fN);
-				fNames[i] = (fN);
-				System.out.println("Please enter your last name.");
-				String lN=input.nextLine();
-				contestanti.setLastName(lN);
-				lNames[i] =(lN);
-				System.out.println("Please ener your street address (## name)");
-				String sA=input.nextLine();
-				contestanti.setStreetAddress(sA);
-				sAddresses[i] =(sA);
-				System.out.println("Please enter your city.");
-				String cT=input.nextLine();
-				contestanti.setCity(cT);
-				cities[i] =(cT);
-				System.out.println("Please enter your province (e.g. Ontario, Alberta)");
-				String pR =input.nextLine();
-				contestanti.setProvince(pR);
-				provinces[i] =(pR);
-				System.out.println("Please enter your postal code. (e.g. A#A#A#)");
-				String pC=input.nextLine();
-				contestanti.setPostalCode(pC);
-				pCodes[i] =(pC);
-				System.out.println("Please enter your phone number. (e.g. ##########)");
-				String pH=input.nextLine();
-				contestanti.setPhone(pH);
-				phones[i] =(pH);
-				System.out.println("Please enter your birth date. (e.g. YYYY/MM/DD)");
-				String bD=input.nextLine();
-				contestanti.setBirthDate(bD);
-				bDates[i] =(bD); */
-				addContestant();
+				addContestant(contestanti);
 			}
 		
 			else if (option==2){ //Search contestants
 				System.out.println("Please enter a last name:");
 				String searchLast = input.nextLine();
-				int index = Search.StringSearch(lNames, searchLast);
+				int index = Search.StringSearch(contestanti, searchLast);
 				System.out.println(index);
 			}
 
 			else if (option==3){ //Print labels
-				Label label1 = new Label(contestanti);
-				System.out.print(label1.toString());
+				printContestant(contestanti);
+				
 			}
 		
 			else if (option==4){ //Delete Contestants
-				System.out.println("Please enter the last name if the contestant.");
-				String target = input.nextLine();
-				int dLName = Search.StringSearch(lNames, target);
-				
+				System.out.println("Please enter the last name of the contestant.");
+				String target = input.nextLine();//target location 
+				int dLName = Search.StringSearch(contestanti, target);
+				contestanti.remove(dLName);//removes info from this array spot
 			
 			}
 			
 			else if (option==5){ //Clear all Contestants
-				
+				contestanti.removeAll(contestanti);
 			}
 			
 			else if (option==6){ //Save list
@@ -120,11 +82,11 @@ public class RealityShowApplication {
 			}
 			
 			else if (option==7){ // Load list
-				
+				loadfile(contestanti);
 			}
 
 			else if (option==8){ //Quit program
-				
+				System.exit(0);
 			}
 			
 			else { //No sselection
@@ -137,14 +99,33 @@ public class RealityShowApplication {
 		
 	}
 	
-	public static void loadfile(ArrayList<ContestantInformation> contestanti) throws FileNotFoundException{
+	public static void loadfile(ArrayList<ContestantInformation> contestanti) throws IOException{ //loads text from the txt file 
 		BufferedReader fbr = new BufferedReader(new FileReader("saved.txt"));
+		contestanti.removeAll(contestanti); //clears array before loading new text
+			int size = Integer.parseInt(fbr.readLine());
+			for (int i = 0; i<size; i++){
+				String firstName = fbr.readLine();
+				String lastName = fbr.readLine();
+				String streetAddress = fbr.readLine();
+				String city = fbr.readLine();
+				String province = fbr.readLine();
+				String postalCode = fbr.readLine();
+				String birthDate = fbr.readLine();
+				String phone = fbr.readLine();
+				try {
+					contestanti.add(new ContestantInformation(firstName, lastName, streetAddress, city, province, postalCode, birthDate, phone));
+				} catch (InvalidInputException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}		
 	}
 	
-	public static void savefile(ArrayList<ContestantInformation> contestanti) throws IOException{
-		FileOutputStream fileOutputStream = new FileOutputStream("saved.txt");
-		for(int i=0;i<contestanti.size();i++){
-			PrintStream fps = new PrintStream(fileOutputStream);
+	public static void savefile(ArrayList<ContestantInformation> contestanti) throws IOException{ //saves text to the txt file
+		FileOutputStream fileOutputStream = new FileOutputStream("saved.txt"); //allows saving to the selected file
+		PrintStream fps = new PrintStream(fileOutputStream);
+		fps.println(contestanti.size()); //shows contestant #
+		for(int i = 0; i < contestanti.size(); i++){ 			
 			fps.println(contestanti.get(i).getFirstName());
 			fps.println(contestanti.get(i).getLastName());
 			fps.println(contestanti.get(i).getStreetAddress());
@@ -162,15 +143,16 @@ public class RealityShowApplication {
  * 
  * @param contestants
  */
-public static void addContestant(ArrayList<ContestantInformation>contestants){
-	ContestantInformation contestant = new ContestantInformation();
+public static void addContestant(/*ArrayList<ContestantInformation>contestants*/ ArrayList<ContestantInformation> contestanti){ //adding contestants to the program
+	ContestantInformation contestant = new ContestantInformation(); 
 	boolean flag = false;
+	// Adds contestant information under each category
 	do{
 		try{
 			flag = false;
-			System.out.print("Please enter your first name.");
+			System.out.print("Please enter your first name."); 
 			String fN = input.nextLine();
-			contestant.setFirstName(fN);
+			contestant.setFirstName(fN);//sets first name 
 		}
 		catch (InvalidInputException fN){
 			System.out.print(fN.getMessage());
@@ -184,7 +166,7 @@ public static void addContestant(ArrayList<ContestantInformation>contestants){
 			flag = false;
 			System.out.print("Please enter your last name.");
 			String lN = input.nextLine();
-			contestant.setLastName(lN);
+			contestant.setLastName(lN);//sets last name
 		}
 		catch (InvalidInputException lN){
 			System.out.print(lN.getMessage());
@@ -196,9 +178,9 @@ public static void addContestant(ArrayList<ContestantInformation>contestants){
 	do{
 		try{
 			flag = false;
-			System.out.print("Please enter your street name.");
+			System.out.print("Please ener your street address (## name)");
 			String sA = input.nextLine();
-			contestant.setStreetAddress(sA);
+			contestant.setStreetAddress(sA);//sets street address
 		}
 		catch (InvalidInputException sA){
 			System.out.print(sA.getMessage());
@@ -212,7 +194,7 @@ public static void addContestant(ArrayList<ContestantInformation>contestants){
 			flag = false;
 			System.out.print("Please enter your city.");
 			String cT = input.nextLine();
-			contestant.setCity(cT);
+			contestant.setCity(cT);//sets city
 		}
 		catch (InvalidInputException cT){
 			System.out.print(cT.getMessage());
@@ -221,16 +203,16 @@ public static void addContestant(ArrayList<ContestantInformation>contestants){
 	}
 	while(flag);
 			
-	System.out.print("Please enter your province.");	
+	System.out.print("Please enter your province (e.g. Ontario, Alberta)");	
 	String pR = input.nextLine();	
-	contestant.setProvince(pR);
+	contestant.setProvince(pR);//sets province
 	
 	do{
 		try{
 			flag = false;
-			System.out.print("Please enter your postal code.");
+			System.out.print("Please enter your postal code. (e.g. A#A#A#)");
 			String pC = input.nextLine();
-			contestant.setPostalCode(pC);
+			contestant.setPostalCode(pC);//sets postal code
 		}
 		catch (InvalidInputException pC){
 			System.out.print(pC.getMessage());
@@ -242,9 +224,24 @@ public static void addContestant(ArrayList<ContestantInformation>contestants){
 	do{
 		try{
 			flag = false;
-			System.out.print("Please enter your birth date.");
+			System.out.print("Please enter your birth date. (e.g. YYYY/MM/DD)");
 			String bD = input.nextLine();
-			contestant.setBirthDate(bD);
+			String year = bD.substring(0,3); //takes the year from the dates inputted
+			int req = 1997; //required max birth year 
+			if (Integer.parseInt(year) < req){
+				contestant.setBirthDate(bD);//sets birth date
+			}
+			else {
+				System.out.println("Sorry, what year were you born in?");
+				String bD2 = input.nextLine();
+				if (Integer.parseInt(year) < req){
+					contestant.setBirthDate(bD2);//sets birth date
+				}
+				else { //if age is not right
+					System.out.println("Sorry, you do not meet the age requirements...");
+				}
+			}
+			
 		}
 		catch (InvalidInputException bD){
 			System.out.print(bD.getMessage());
@@ -256,9 +253,9 @@ public static void addContestant(ArrayList<ContestantInformation>contestants){
 	do{		
 		try{
 			flag = false;
-			System.out.print("Please enter your phone number.");
+			System.out.print("Please enter your phone number. (e.g. ##########)");
 			String pH = input.nextLine();
-			contestant.setPhone(pH);
+			contestant.setPhone(pH);//sets phone 
 		}
 		catch (InvalidInputException pH){
 			System.out.print(pH.getMessage());
@@ -267,8 +264,19 @@ public static void addContestant(ArrayList<ContestantInformation>contestants){
 	}
 	while(flag); 
 	
-	contestants.add(contestant);
+	return;
+	
 }
 		
+
+
+public static void printContestant(ArrayList<ContestantInformation>contestants){ //outputs to the console
+	for (int i=0; i < contestants.size();i++){
+		Label label1 = new Label(contestants.get(i)); //formatting by label
+		System.out.println(label1.toString()); //prints the label
+	}
+}
+
+
 
 }

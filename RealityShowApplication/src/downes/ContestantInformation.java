@@ -78,11 +78,11 @@ public class ContestantInformation implements Comparable {
 	 * @throws InvalidInputException 
 	 */
 	public void setLastName(String lastName) throws InvalidInputException{
-		if(lastName.length() == 0){
+		if(lastName.length() == 0){ //if field is empty
 			throw new InvalidInputException("You cannot leave your last name empty.");
 		}
 		for(int i = 0; i < lastName.length(); i ++){
-			if (Character.isDigit(lastName.charAt(i))){
+			if (Character.isDigit(lastName.charAt(i))){ //checks that only letters are inputted
 				throw new InvalidInputException("You cannot have a number in your name.");
 			}
 		}
@@ -103,7 +103,7 @@ public class ContestantInformation implements Comparable {
 	 * @throws InvalidInputException 
 	 */
 	public void setStreetAddress(String streetAddress) throws InvalidInputException{
-		if(streetAddress.length() == 0){
+		if(streetAddress.length() == 0){ //if field is empty
 			throw new InvalidInputException("You can not leave your address empty.");
 		}
 		this.streetAddress = streetAddress;
@@ -121,10 +121,10 @@ public class ContestantInformation implements Comparable {
 	 * @throws InvalidInputException 
 	 */
 	public void setCity(String city) throws InvalidInputException{
-		if(city.length() == 0){
+		if(city.length() == 0){//if field is empty
 			throw new InvalidInputException("You can not leave your city empty.");
 		}
-		for(int i = 0; i < city.length(); i++){
+		for(int i = 0; i < city.length(); i++){ //checks that only letters are inputted
 			if (Character.isDigit(city.charAt(i))){
 				throw new InvalidInputException("City's names do not contain numbers.");
 			}
@@ -135,7 +135,7 @@ public class ContestantInformation implements Comparable {
 	/**
 	 * @return String province
 	 */
-	public String getProvince(){
+	public String getProvince(){ 
 		return province;
 	}
 	
@@ -143,7 +143,7 @@ public class ContestantInformation implements Comparable {
 	 * @param String province
 	 */
 	String provinceCode;
-	public void setProvince(String province){
+	public void setProvince(String province){ //formats the inputted province
 		if (province.equalsIgnoreCase("ontario")){
 			provinceCode = "ON";
 		}
@@ -222,10 +222,10 @@ public class ContestantInformation implements Comparable {
 	 * @throws InvalidInputException 
 	 */
 	public void setPhone(String phone) throws InvalidInputException{
-		if(phone.length() == 0){
+		if(phone.length() == 0){ //if field is empty
 			throw new InvalidInputException("You can not leave your phone number empty.");
 		}
-		for (int i=0; i<=phone.length(); i++) {
+		for (int i=0; i<phone.length(); i++) {
 			if (Character.isLetter(phone.charAt(i))){
 				throw new InvalidInputException("Please enter a valid phone number.");
 			}
@@ -245,7 +245,7 @@ public class ContestantInformation implements Comparable {
 	 * @throws InvalidInputException 
 	 */
 	public void setBirthDate(String birthDate) throws InvalidInputException{
-		if(birthDate.length() == 0){
+		if(birthDate.length() == 0){ //if field is empty
 			throw new InvalidInputException("You can not leave your birth date empty.");
 		}
 		this.birthDate = birthDate;
